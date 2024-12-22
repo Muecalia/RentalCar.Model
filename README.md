@@ -40,11 +40,13 @@ A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufac
 | Motor         |   Motor        |            |
 | string        |   Type         |            |
 
+<br/>
 # Auxiliary Projects
 | Project      | Link       | 
 |--------------|----------------------------------------------------|
 | Category     | https://github.com/Muecalia/RentalCar.Category     |
 | Manufacturer | https://github.com/Muecalia/RentalCar.Manufacturer |  
+<br/>
 
 # Linguagens, Ferramentas e Tecnologias
 <div align="left">
