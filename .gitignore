@@ -1,5 +1,27 @@
-# Object file
-*.o
+# Diretórios e arquivos gerados pela build
+bin/
+obj/
+out/
 
-# Ada Library Information
-*.ali
+# Arquivos de log
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+
+# Arquivos de usuário do Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Arquivos de compilação
+*.dll
+*.exe
+*.pdb
+*.cache
+*.pdb
+*.rsp
+*.dmp
