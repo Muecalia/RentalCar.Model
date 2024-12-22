@@ -40,6 +40,10 @@ A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufac
 | Motor         |   Motor        |            |
 | string        |   Type         |            |
 
+# Auxiliary Projects
+1. Category (https://github.com/Muecalia/RentalCar.Category)
+2. Manufacturer (https://github.com/Muecalia/RentalCar.Manufacturer)
+
 # Linguagens, Ferramentas e Tecnologias
 <div align="left">
   <p align="left">
@@ -62,5 +66,4 @@ A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufac
 ![Jaeger_OpenTelemetry](https://github.com/user-attachments/assets/bac7e17b-c42c-48a8-83ab-c0c3c1b0f3dc)
 
 <br/>
-
 
