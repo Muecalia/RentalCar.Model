@@ -41,8 +41,10 @@ A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufac
 | string        |   Type         |            |
 
 # Auxiliary Projects
-1. Category (https://github.com/Muecalia/RentalCar.Category)
-2. Manufacturer (https://github.com/Muecalia/RentalCar.Manufacturer)
+| Project      | Link       | 
+|--------------|----------------------------------------------------|
+| Category     | https://github.com/Muecalia/RentalCar.Category     |
+| Manufacturer | https://github.com/Muecalia/RentalCar.Manufacturer |  
 
 # Linguagens, Ferramentas e Tecnologias
 <div align="left">
