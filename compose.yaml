@@ -1,0 +1,30 @@
+﻿services:
+  model.api:
+    image: rentalcar.model.api
+    build:
+      context: .
+      dockerfile: RentalCar.Model.API/Dockerfile
+    container_name: model.api
+    depends_on:
+      - model.db
+    ports:
+      - "810:8080"
+      - "811:8081"
+    volumes:
+      - model_api_log:/logs
+
+  model.db:
+    image: mysql:8.0.40
+    restart: on-failure
+    container_name: model.mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Admin2k24@
+    ports:
+      - "3309:3306"
+    volumes:
+      - model_data:/var/lib/mysql
+
+
+volumes:
+  model_api_log:
+  model_data:
