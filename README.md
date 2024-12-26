@@ -1,7 +1,9 @@
 # RentalCar.Model
 Microserviço para gestão de modelos dos automoveis da loja de aluguer de carros.
 
-A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufacturer) é feito via messageria (RabbitMQ). No momento do registo os Ids (IdCategory e IdManufacturer) são escritos dentro as respectivas filas e cada serviços irá consultar e enviar a resposta, para saber se os dados são ou não válidos.
+A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufacturer) é feito via messageria (RabbitMQ). 
+No momento do registo os Ids (IdCategory e IdManufacturer) são escritos dentro as respectivas filas e cada serviços irá consultar e enviar a resposta, para saber se os dados são ou não válidos.
+Ao pesquisar pelo modelo, é publicado os códigos (IdCategory e IdManufacturer) nas filas e depois consumidas e apresentadas ao utilizador.
 
 # Arquitectura do Projecto
 ![Diagrama](https://github.com/user-attachments/assets/3f4e648a-f0dd-4e5f-b633-d5fdbe90098a)
@@ -71,3 +73,6 @@ A comunicação com os serviços Category (IdCategory) e Manufacturer (IdManufac
 
 <br/>
 
+# Migration
+dotnet ef migrations add FirstMigration --project RentalCar.Model.Infrastructure -o Persistence/Migrations -s RentalCar.Model.API
+dotnet ef database update --project RentalCar.Model.Infrastructure -s RentalCar.Model.API
