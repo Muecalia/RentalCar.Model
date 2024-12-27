@@ -7,16 +7,12 @@ public class CustomValidator
     public static bool ValidTransmission(char value)
     {
         var itens = Enum.GetValues(typeof(Transmission)).Cast<char>().ToList();
-        if (itens.Any(item => item == value))
-            return true;
-        return false;
+        return itens.Any(item => item == value);
     }
 
     public static bool ValidMotor(char value)
     {
         var itens = Enum.GetValues(typeof(Motor)).Cast<char>().ToList();
-        if (itens.Any(item => item == value))
-            return true;
-        return false;
+        return itens.Any(item => item == value);
     }
 }

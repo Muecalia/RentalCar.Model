@@ -29,7 +29,7 @@ public class CreateModelHandler : IRequestHandler<CreateModelRequest, ApiRespons
     public async Task<ApiResponse<string>> Handle(CreateModelRequest request, CancellationToken cancellationToken)
     {
         const string Objecto = "modelo";
-        const string Operacao = "registar";
+        const string Operacao = "registo";
         try
         {
             if (await _repository.IsModelExist(request.Name, cancellationToken))
@@ -53,10 +53,9 @@ public class CreateModelHandler : IRequestHandler<CreateModelRequest, ApiRespons
             var category = new RequestValidService(model.Id, request.IdCategory);
             var manufacturer = new RequestValidService(model.Id, request.IdManufacturer);
                 
-            await _rabbitMqService.PublishMessage(category, RabbitQueue.CATEGORY_MODEL_REQUEST_QUEUE, cancellationToken);
-            await _rabbitMqService.PublishMessage(manufacturer, RabbitQueue.MANUFACTURER_MODEL_REQUEST_QUEUE, cancellationToken);
+            await _rabbitMqService.PublishMessage(category, RabbitQueue.CATEGORY_MODEL_NEW_REQUEST_QUEUE, cancellationToken);
+            await _rabbitMqService.PublishMessage(manufacturer, RabbitQueue.MANUFACTURER_MODEL_NEW_REQUEST_QUEUE, cancellationToken);
 
-            //var result = new InputModelResponse(model.Id, model.Name);
             _prometheusService.AddNewModelCounter(StatusCodes.Status201Created.ToString());
             return ApiResponse<string>.Success(Objecto, MessageError.OperacaoProcessamento(Objecto, Operacao));
         }

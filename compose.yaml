@@ -1,6 +1,7 @@
 ﻿services:
   model.api:
     image: rentalcar.model.api
+    restart: always
     build:
       context: .
       dockerfile: RentalCar.Model.API/Dockerfile
@@ -15,7 +16,7 @@
 
   model.db:
     image: mysql:8.0.40
-    restart: on-failure
+    restart: always
     container_name: model.mysql
     environment:
       MYSQL_ROOT_PASSWORD: Admin2k24@

@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RentalCar.Model.Core.Entities;
+using RentalCar.Model.Core.Enuns;
 using RentalCar.Model.Core.Repositories;
 using RentalCar.Model.Infrastructure.Persistence;
 
@@ -19,6 +20,13 @@ public class ModelRepository : IModelRepository
         _context.Models.Add(model);
         await _context.SaveChangesAsync(cancellationToken);
         return model;
+    }
+
+    public async Task UpdateStatus(CancellationToken cancellationToken)
+    {
+        await _context.Models
+            .Where(m => !string.IsNullOrEmpty(m.IdCategory) && !string.IsNullOrEmpty(m.IdManufacturer))
+            .ExecuteUpdateAsync(s => s.SetProperty(m => m.Status, Status.Created), cancellationToken);
     }
 
     public async Task Delete(Models model, CancellationToken cancellationToken)

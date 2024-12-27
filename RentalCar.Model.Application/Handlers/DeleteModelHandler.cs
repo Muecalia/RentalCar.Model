@@ -40,7 +40,7 @@ public class DeleteModelHandler : IRequestHandler<DeleteModelRequest, ApiRespons
 
             //var result = new InputModelResponse(Model.Id, Model.Name);
             _prometheusService.AddDeleteModelCounter(StatusCodes.Status204NoContent.ToString());
-            return ApiResponse<string>.Success(Objecto, MessageError.OperacaoProcessamento(Objecto, Operacao));
+            return ApiResponse<string>.Success(Objecto, MessageError.OperacaoSucesso(Objecto, Operacao));
         }
         catch (Exception ex)
         {

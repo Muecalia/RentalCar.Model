@@ -3,6 +3,7 @@ using System.Text.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RentalCar.Model.Core.Entities;
+using RentalCar.Model.Core.MessageBus;
 using RentalCar.Model.Core.Services;
 
 namespace RentalCar.Model.Infrastructure.Services;
@@ -59,7 +60,7 @@ public class ModelService : IModelService
             await _rabbitMqService.CloseConnection(connection, channel, cancellationToken);
         }
     }
-
+    
     /*
     public async Task<string> GetCategory(string idCategory, CancellationToken cancellationToken)
     {
@@ -69,7 +70,7 @@ public class ModelService : IModelService
         {
             var response = new ServiceRequest();
             
-            await channel.QueueDeclareAsync(RabbitQueue.FIND_CATEGORY_MODEL_RESPONSE_QUEUE, true, false, false, null, cancellationToken: cancellationToken);
+            await channel.QueueDeclareAsync(RabbitQueue.CATEGORY_MODEL_FIND_RESPONSE_QUEUE, true, false, false, null, cancellationToken: cancellationToken);
 
             //Garantir que seja enviado ao consumidor uma mensagem em cada processamento
             await channel.BasicQosAsync(0, 1, false, cancellationToken);
@@ -86,7 +87,7 @@ public class ModelService : IModelService
                 response = JsonSerializer.Deserialize<ServiceRequest>(message);
             };
 
-            await channel.BasicConsumeAsync(queue: RabbitQueue.FIND_CATEGORY_MODEL_RESPONSE_QUEUE, autoAck: true, consumer: consumer, cancellationToken: cancellationToken);
+            await channel.BasicConsumeAsync(queue: RabbitQueue.CATEGORY_MODEL_FIND_RESPONSE_QUEUE, autoAck: true, consumer: consumer, cancellationToken: cancellationToken);
 
             //Aguardar o processamento da mensagem
             await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
@@ -111,7 +112,7 @@ public class ModelService : IModelService
         try
         {
             var response = new ServiceRequest();
-            await channel.QueueDeclareAsync(RabbitQueue.FIND_MANUFACTURER_MODEL_RESPONSE_QUEUE, true, false, false, null, cancellationToken: cancellationToken);
+            await channel.QueueDeclareAsync(RabbitQueue.MANUFACTURER_MODEL_FIND_RESPONSE_QUEUE, true, false, false, null, cancellationToken: cancellationToken);
 
             //Garantir que seja enviado ao consumidor uma mensagem em cada processamento
             await channel.BasicQosAsync(0, 1, false, cancellationToken);
@@ -130,7 +131,7 @@ public class ModelService : IModelService
             };
 
             //Iniciar o consumo de mensagens numa file
-            await channel.BasicConsumeAsync(queue: RabbitQueue.FIND_MANUFACTURER_MODEL_RESPONSE_QUEUE, autoAck: true, consumer: consumer, cancellationToken: cancellationToken);
+            await channel.BasicConsumeAsync(queue: RabbitQueue.MANUFACTURER_MODEL_FIND_RESPONSE_QUEUE, autoAck: true, consumer: consumer, cancellationToken: cancellationToken);
 
             //Aguardar o processamento da mensagem
             await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
