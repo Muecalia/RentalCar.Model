@@ -133,7 +133,7 @@ if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 }
 
 //OpenTelemetry to Prometheus
-//app.UseOpenTelemetryPrometheusScrapingEndpoint();
+app.UseOpenTelemetryPrometheusScrapingEndpoint();
 
 app.UseCors(myAllowSpecificOrigins);
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using RentalCar.Model.Application.Commands.Request;
 using RentalCar.Model.Application.Commands.Response;
 using RentalCar.Model.Core.Configs;
+using RentalCar.Model.Core.MessageBus;
 using RentalCar.Model.Core.Repositories;
 using RentalCar.Model.Core.Services;
 using RentalCar.Model.Core.Wrappers;
@@ -15,12 +16,14 @@ public class UpdadeModelHandler : IRequestHandler<UpdateModelRequest, ApiRespons
         private readonly IModelRepository _repository;
         private readonly ILoggerService _loggerService;
         private readonly IPrometheusService _prometheusService;
+        private readonly IRabbitMqService _rabbitMqService;
 
-        public UpdadeModelHandler(IModelRepository repository, ILoggerService loggerService, IPrometheusService prometheusService)
+        public UpdadeModelHandler(IModelRepository repository, ILoggerService loggerService, IPrometheusService prometheusService, IRabbitMqService rabbitMqService)
         {
             _repository = repository;
             _loggerService = loggerService;
             _prometheusService = prometheusService;
+            _rabbitMqService = rabbitMqService;
         }
 
         public async Task<ApiResponse<string>> Handle(UpdateModelRequest request, CancellationToken cancellationToken)
@@ -46,6 +49,12 @@ public class UpdadeModelHandler : IRequestHandler<UpdateModelRequest, ApiRespons
                 await _repository.Update(model, cancellationToken);
                 
                 _prometheusService.AddUpdateModelCounter(StatusCodes.Status200OK.ToString());
+                
+                var category = new RequestValidService(model.Id, request.IdCategory);
+                var manufacturer = new RequestValidService(model.Id, request.IdManufacturer);
+                
+                await _rabbitMqService.PublishMessage(category, RabbitQueue.CATEGORY_MODEL_UPDATE_REQUEST_QUEUE, cancellationToken);
+                await _rabbitMqService.PublishMessage(manufacturer, RabbitQueue.MANUFACTURER_MODEL_UPDATE_REQUEST_QUEUE, cancellationToken);
                 
                 return ApiResponse<string>.Success(Objecto, MessageError.OperacaoSucesso(Objecto, Operacao));
             }

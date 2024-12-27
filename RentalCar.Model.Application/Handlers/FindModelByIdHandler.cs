@@ -41,11 +41,13 @@ public class FindModelByIdHandler : IRequestHandler<FindModelByIdRequest, ApiRes
                 return ApiResponse<FindModelByIdResponse>.Error(MessageError.NotFound(Objecto));
             }
 
-            await _rabbitMqService.PublishMessage(model.IdCategory, RabbitQueue.FIND_CATEGORY_MODEL_REQUEST_QUEUE, cancellationToken);
-            await _rabbitMqService.PublishMessage(model.IdManufacturer, RabbitQueue.FIND_MANUFACTURER_MODEL_REQUEST_QUEUE, cancellationToken);
+            await _rabbitMqService.PublishMessage(model.IdCategory, RabbitQueue.CATEGORY_MODEL_FIND_REQUEST_QUEUE, cancellationToken);
+            await _rabbitMqService.PublishMessage(model.IdManufacturer, RabbitQueue.MANUFACTURER_MODEL_FIND_REQUEST_QUEUE, cancellationToken);
             
-            var category = await _modelService.GetService(model.IdCategory, RabbitQueue.FIND_CATEGORY_MODEL_RESPONSE_QUEUE, cancellationToken);
-            var manufacturer = await _modelService.GetService(model.IdManufacturer, RabbitQueue.FIND_MANUFACTURER_MODEL_RESPONSE_QUEUE, cancellationToken);
+            var category = await _modelService.GetService(model.IdCategory, RabbitQueue.CATEGORY_MODEL_FIND_RESPONSE_QUEUE, cancellationToken);
+            var manufacturer = await _modelService.GetService(model.IdManufacturer, RabbitQueue.MANUFACTURER_MODEL_FIND_RESPONSE_QUEUE, cancellationToken);
+
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
 
             var result = new FindModelByIdResponse(model.Id, model.Name, EnunsServices.GetDescriptionMotor(model.Motor), 
                 EnunsServices.GetDescriptionTransmission(model.Transmission), category, manufacturer,

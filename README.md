@@ -46,7 +46,8 @@ Ao pesquisar pelo modelo, é publicado os códigos (IdCategory e IdManufacturer)
 | Project      | Link       | 
 |--------------|----------------------------------------------------|
 | Category     | https://github.com/Muecalia/RentalCar.Category     |
-| Manufacturer | https://github.com/Muecalia/RentalCar.Manufacturer |  
+| Manufacturer | https://github.com/Muecalia/RentalCar.Manufacturer |
+| Security     | https://github.com/Muecalia/RentalCar.Security     |
 
 <br/>
 
