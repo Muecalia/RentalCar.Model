@@ -25,7 +25,7 @@ public class ModelRepository : IModelRepository
     public async Task UpdateStatus(CancellationToken cancellationToken)
     {
         await _context.Models
-            .Where(m => !string.IsNullOrEmpty(m.IdCategory) && !string.IsNullOrEmpty(m.IdManufacturer))
+            .Where(m => !string.IsNullOrEmpty(m.IdCategory) && !string.IsNullOrEmpty(m.IdManufacturer) && m.Status == Status.Pending)
             .ExecuteUpdateAsync(s => s.SetProperty(m => m.Status, Status.Created), cancellationToken);
     }
 

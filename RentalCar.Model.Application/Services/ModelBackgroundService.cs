@@ -39,7 +39,7 @@ public class ModelBackgroundService : BackgroundService
             
             Console.WriteLine("Updated Model Processing");
             
-            await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+            await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
         }
     }
     
@@ -187,7 +187,7 @@ public class ModelBackgroundService : BackgroundService
             await channel.BasicConsumeAsync(queue: RabbitQueue.MANUFACTURER_MODEL_NEW_RESPONSE_QUEUE, autoAck: true, consumer: consumerManufacturer, cancellationToken: cancellationToken);
 
             //Aguardar o processamento da mensagem
-            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
         }
         catch (Exception ex)
         {
